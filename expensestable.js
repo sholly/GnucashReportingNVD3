@@ -1,27 +1,14 @@
 /**
  * Created by sholly on 4/20/17.
  */
-// fetch("http://localhost:5000/expenses")
-//     .then(function (response) {
-//         console.log('status', response.status);
-//         return response.json();
-//     }).then(function (j) {
-//     items = j['items'];
-//     data = j['items'];
-//     // items.forEach((i) =>   {
-//     //     console.log(i[0], ", ", i[1]);
-//     // });
-//     let pd = new PrintData(data);
-//     pd.printData();
-// }).catch(function (err) {
-//     console.log(err);
-// });
 let startdate = document.querySelector('input[name=startdate]');
 startdate.value = getFirstDateOfThisMonth();
 let enddate = document.querySelector('input[name=enddate]');
 enddate.value = getToday();
 ediv = document.querySelector('.expenses');
 console.log(ediv);
+
+let expensedata = [];
 
 class DataFetcher {
     constructor() {
@@ -30,10 +17,10 @@ class DataFetcher {
 
     getExpenses(startdate, enddate) {
         this.expensesUrl = this.url + "/expenses";
-        if(startdate !== null) {
+        if (startdate !== null) {
             this.expensesUrl += `?startdate=${startdate}`;
         }
-        if(enddate !== null) {
+        if (enddate !== null) {
             this.expensesUrl += `&enddate=${enddate}`;
         }
         this.expensesData = this._fetchData(this.expensesUrl);
@@ -46,17 +33,32 @@ class DataFetcher {
                 console.log(response.status);
                 return response.json();
             }).then((json) => {
-            data = json['items'];
-            let dataHtml = `<table><thead><tr>
+            data = this.generateexpensestable(json);
+            this.generatechart(data);
+
+        }).catch((error) => console.log(error));
+        return data;
+    }
+
+    generatechart(data) {
+        var svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height"),
+            radius = Math.min(width, height) / 2,
+            g = svg.append("g").attr("transform", "translate(" + width / 2 + ", " +
+                height / 2 + ")");
+
+    }
+
+    generateexpensestable(data) {
+        let dataHtml = `<table><thead><tr>
                         <td>Expense Account</td><td>Amount</td>
                         </tr></thead>`;
-            data.forEach((d) => {
-                dataHtml += `<tr><td>${d[0]}</td><td>${d[1]}</td></tr>`;
-            });
-            dataHtml += `</table>`;
-            ediv.innerHTML = dataHtml;
-        }).catch((error) => console.log(error));
-        console.log(data.length);
+        data.forEach((d) => {
+            dataHtml += `<tr><td>${d.name}</td><td>${d.amount}</td></tr>`;
+        });
+        dataHtml += `</table>`;
+        ediv.innerHTML = dataHtml;
         return data;
     }
 }
@@ -64,8 +66,8 @@ class DataFetcher {
 function getToday() {
     let today = new Date();
     let fullYear = today.getFullYear();
-    let month = today.getMonth()+1 < 10 ? `0${today.getMonth()+1}` : `${today.getMonth()}`;
-    let dayOfMonth = today.getDate() < 10 ? `0${today.getDate()}`: `${today.getDate()}`;
+    let month = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : `${today.getMonth()}`;
+    let dayOfMonth = today.getDate() < 10 ? `0${today.getDate()}` : `${today.getDate()}`;
     todayString = `${fullYear}-${month}-${dayOfMonth}`;
     return todayString;
 }
@@ -73,7 +75,7 @@ function getToday() {
 function getFirstDateOfThisMonth() {
     let today = new Date();
     let fullYear = today.getFullYear();
-    let month = today.getMonth()+1 < 10 ? `0${today.getMonth()+1}` : `${today.getMonth()}`;
+    let month = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : `${today.getMonth()}`;
     todayString = `${fullYear}-${month}-01`;
     return todayString;
 }
