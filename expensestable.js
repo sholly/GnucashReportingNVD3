@@ -95,8 +95,8 @@ class ExpensesMaker {
 
     updateChart(data) {
         this.path.data(this.pie(data));
-        this.path.transition()
-            .duration(750);
+        // this.path.transition()
+        //     .duration(750);
             // .attrTween("d", this.arcTween);
     }
 

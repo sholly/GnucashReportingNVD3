@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses NVd3</title>
+    <link href="nv.d3.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dates">
+    <form>Start Date:<input type="date" id="startdate" name="startdate"></form>
+    <form>End Date:<input type="date" id="enddate" name="enddate"></form>
+</div>
+<!--<svg width="200" height="200"></svg>-->
+<div id="expenseschart">
+    <svg style="height:600px; width: 600px;"></svg>
+</div>
+<div class="expenses">Expenses!</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+<script src="nv.d3.js"></script>
+<script src="expensesnvd3.js"></script>
+</html>
