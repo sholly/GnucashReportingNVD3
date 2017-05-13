@@ -33,7 +33,8 @@ function sliceData(data, sliceby) {
 var chart;
 var chartData;
 function renderchart(data) {
-    let sliceddata = this.sliceData(data, 25);
+    console.log("renderchart this: ", this);
+    let sliceddata = this.sliceData(data, 14);
     chart = nv.addGraph(function () {
         chart = nv.models.pieChart()
             .x(function (d) {
@@ -53,10 +54,11 @@ function renderchart(data) {
 
         chartData.transition().duration(350)
             .call(chart);
-        console.log("in function this ", this);
+        console.log("in nv addgraph this ", this);
+        console.log(sliceddata);
         return chart;
     });
-    console.log(this);
+    console.log(" out of function ", this);
 }
 
 
