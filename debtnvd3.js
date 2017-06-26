@@ -21,22 +21,19 @@ var data = [
 
 function renderChart(data) {
     var chart = nv.addGraph(function () {
-        console.log(data);
         chart = nv.models.multiBarChart()
             .reduceXTicks(true)
             .rotateLabels(0)
-            .showControls(true)
+            .showControls(false)
             .groupSpacing(0.1);
         chart.xAxis.tickFormat(function (d) {
             return d3.time.format('%x')(new Date(d));
         });
-        // chart.yAxis.tickFormat(d3.format(',f'));
-        // chart.yAxis.tickFormat(',f');
-
+        chart.multibar.stacked(true);
         chartThing = d3.select('#debtchart svg')
             .datum(data);
 
-        chartThing.transition().duration(350)
+        chartThing.transition().duration(150)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
@@ -44,9 +41,27 @@ function renderChart(data) {
     })
 }
 
+function renderTable(data) {
+    data.forEach(d => {
+        console.log(d['key']);
+        values = d['values'];
+        values.forEach(v => console.log(v['x'] + ":" + v['y']));
+    });
+
+    let tableHTML = '<table border="1px solid"><tr>';
+    data.forEach(d => {
+        tableHTML += `<th>${d['key']}</th>`;
+    });
+    tableHTML += '</tr>';
+    tableHTML += '</table>';
+    let ddiv = document.querySelector('#debttable');
+    console.log(ddiv);
+    ddiv.innerHTML = tableHTML;
+}
+
 function getDebtData() {
     var debtData = [];
-    debtUrl = "http://localhost:5000/debt"
+    debtUrl = "http://localhost:5000/debt";
 
     fetch(debtUrl)
         .then((response) => {
@@ -55,6 +70,7 @@ function getDebtData() {
         })
         .then((json) => {
             renderChart(json);
+            renderTable(json);
         })
         .catch((error) => console.log(error));
     return debtData;
