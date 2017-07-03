@@ -19,7 +19,10 @@
     "moment": "^2.18.1"
   },
   "dependencies": {
-    "nvd3": "^1.8.5"
+    "nvd3": "^1.8.5",
+    "d3-3": "^0.0.0"
+  },
+  "scripts": {
+    "build": "webpack"
   }
-
 }
