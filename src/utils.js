@@ -16,3 +16,8 @@ export function getFirstDateOfThisMonth() {
     let todayString = `${fullYear}-${month}-01`;
     return todayString;
 }
+
+export function getFirstDateOfThisYear() {
+    let today = new Date();
+    let fullYear = today.getFullYear();
+}

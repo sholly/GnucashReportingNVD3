@@ -2,6 +2,7 @@
  * Created by sholly on 6/11/17.
  */
 import * as expenses from './expenses';
+import * as debt from './debt';
 import * as utils from './utils';
 
 let expensesstartdate = document.querySelector('input[name=expensesstartdate]');
@@ -15,5 +16,6 @@ expensesstartdate.addEventListener('change', function () {
 expensesenddate.addEventListener('change', function () {
     expenses.update(expensesstartdate.value, expensesenddate.value);
 });
+debt.getDebtData();
 
 

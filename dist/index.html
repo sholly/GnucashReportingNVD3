@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NVD3 Expenses</title>
+    <title>Your Finances Suck</title>
 </head>
 <body>
 <div class="dates">
@@ -10,8 +10,16 @@
     <form>End Date:<input type="date" id="expensesenddate" name="expensesenddate"></form>
 </div>
 <div id="expenseschart">
-    <svg style="height:700px; width: 600px;"></svg>
+    <svg style="height:700px; width: 700px;"></svg>
 </div>
+<div class="dates">
+    <form>Start Date:<input type="date" id="debtstartdate" name="expensesstartdate"></form>
+    <form>End Date:<input type="date" id="debtenddate" name="expensesenddate"></form>
+</div>
+<div id="debtchart">
+    <svg style="height:700px; width: 700px;"></svg>
+</div>
+<div id="debttable"></div>
 </body>
 <script src="bundle.js"></script>
 </html>
